@@ -10,13 +10,15 @@ const [data, setData] = useState(null)
 
 useEffect(()=>{
 async function showNews() {
-    const apiKey = "eb20917cfecc49e7b911cafda7310aac";
+    
    
    
+   const apiKey= "292c5dd60c320d61ba076e42827c791a"
    const url =
-   category === "home"
-    ? `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`
-    : `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${apiKey}`;
+  category === "home"
+    ? `https://gnews.io/api/v4/top-headlines?country=us&token=${apiKey}`
+    : `https://gnews.io/api/v4/top-headlines?country=us&topic=${category}&token=${apiKey}`;
+
 
 
     const response = await fetch(url);
@@ -42,7 +44,7 @@ return(
         <div className="cards-container">
       {data?.articles?.map((article , index)=>(
         <div key={index} className="card-body">
-            <img src={article.urlToImage} alt="Image isnt avalible" />
+            <img src={article.image} alt="Image isnt avalible" />
 <h3 className="card-author">{article.author ? article.author : "No Author"}</h3>
 <h4 className="card-title">{article.title.slice(0,56)}...</h4>
 <p className="card-content">{article.content ? article.content.slice(0,150) + "..." : "No content avalible for this news"}</p>
