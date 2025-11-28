@@ -13,11 +13,10 @@ async function showNews() {
     
    
    
-   const apiKey= "292c5dd60c320d61ba076e42827c791a"
-   const url =
-  category === "home"
-    ? `https://gnews.io/api/v4/top-headlines?country=us&token=${apiKey}`
-    : `https://gnews.io/api/v4/top-headlines?country=us&topic=${category}&token=${apiKey}`;
+ const apiKey = "2vevzK3toywZ-RfjPw_EAZEsUTlJ5rC4mVB_XY6prlTThity";
+const url = category === "home"
+  ? `https://api.currentsapi.services/v1/latest-news?apiKey=${apiKey}`
+  : `https://api.currentsapi.services/v1/latest-news?category=${category}&apiKey=${apiKey}`;
 
 
 
@@ -42,12 +41,12 @@ return(
    
     <div className="container">
         <div className="cards-container">
-      {data?.articles?.map((article , index)=>(
+      {data?.news?.map((article , index)=>(
         <div key={index} className="card-body">
             <img src={article.image} alt="Image isnt avalible" />
 <h3 className="card-author">{article.author ? article.author : "No Author"}</h3>
 <h4 className="card-title">{article.title.slice(0,56)}...</h4>
-<p className="card-content">{article.content ? article.content.slice(0,150) + "..." : "No content avalible for this news"}</p>
+<p className="card-content">{article.description ? article.description.slice(0,150) + "..." : "No content avalible for this news"}</p>
 <hr className="purple" />
         </div>
       ))}
