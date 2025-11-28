@@ -98,9 +98,7 @@ span{
 
 @media (max-width: 767px) {
 
-  body{
-    margin-left: 15%;
-  }
+
 .cards-container {
      display: grid;
      grid-template-columns: 1fr 1fr ;
