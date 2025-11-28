@@ -62,10 +62,15 @@ hr{
 }
 
 @media (max-width: 768px) {
+ 
   .navbar {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     
+  }
+  .navbar-brand{
+    margin-right: 40%;
   }
   
   .navbar-links {
@@ -75,8 +80,8 @@ hr{
     color: purple;
     display: block;
     position: relative;
-    margin-top: -7.5%;
-    margin-left: 85%;
+    margin-top: -10.4%;
+    margin-left: 70%;
     width: 30px;
   height: 30px;
   cursor: pointer;

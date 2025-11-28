@@ -35,7 +35,7 @@ async function showNews() {
 return(
 <>
   <Navbar changeCategory={setCategory}></Navbar>
-  <h1><span>Breaking News</span> | Home of News ! We bring The latest 
+  <h1><span>Breaking News</span> | Home of News ! We bring the latest 
   news in every category in one place</h1>
    
     <div className="container">
