@@ -1,58 +1,84 @@
-import React from "react";
-import {Menu , X} from "lucide-react"
-import { useState } from "react";
-import "./Navbar.css"; 
+import React, { useState, useEffect, useRef } from "react";
+import { Menu, X } from "lucide-react";
+import "./Navbar.css";
 
-function Navbar({changeCategory}) {
+const categories = [
+  { id: "home", label: "Home" },
+  { id: "general", label: "General" },
+  { id: "health", label: "Health" },
+  { id: "sports", label: "Sports" },
+  { id: "technology", label: "Technology" },
+  { id: "business", label: "Business" },
+  { id: "entertainment", label: "Entertainment" },
+  { id: "science", label: "Science" },
+];
 
+function Navbar({ changeCategory, activeCategory }) {
+  const [open, setOpen] = useState(false);
+  const navRef = useRef(null);
 
-     const [open, isOpen] = useState(false)
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    function handleOutsideClick(e) {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
+
+  const handleSelect = (id) => {
+    changeCategory(id);
+    setOpen(false);
+  };
 
   return (
+    <nav className="navbar" ref={navRef}>
+      <div className="navbar-brand">
+        <span className="brand-icon">⚡</span>
+        Blitz News
+      </div>
 
- 
-    <>
-    <nav className="navbar">
-        
-      <div className="navbar-brand">Blitz News⚡</div>
+      {/* Desktop links */}
+      <ul className="navbar-links">
+        {categories.map((cat) => (
+          <li key={cat.id}>
+            <button
+              className={activeCategory === cat.id ? "active" : ""}
+              onClick={() => handleSelect(cat.id)}
+            >
+              {cat.label}
+            </button>
+          </li>
+        ))}
+      </ul>
 
-      {open ? (
-        <X className="menu-icon" onClick={() => isOpen(false)}/>
-      ):
-      <Menu className="menu-icon" onClick={()=> isOpen(true)} />
-      }
+      {/* Mobile hamburger */}
+      <button
+        className="menu-toggle"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-label="Toggle navigation menu"
+      >
+        {open ? <X size={20} /> : <Menu size={20} />}
+      </button>
 
-     
-
-        {open ? (
-  <ul className="mobile-links">
-    <li><button onClick={() => changeCategory("general")}>General</button></li>
-    <li><button onClick={() => changeCategory("health")}>Health</button></li>
-    <li><button onClick={() => changeCategory("sports")}>Sports</button></li>
-    <li><button onClick={() => changeCategory("technology")}>Technology</button></li>
-    <li><button onClick={() => changeCategory("business")}>Business</button></li>
-    <li><button onClick={() => changeCategory("entertainment")}>Entertainment</button></li>
-    <li><button onClick={() => changeCategory("science")}>Science</button></li>
-  </ul>
-) : (
-  <ul className="navbar-links">
-    <li><button onClick={() => changeCategory("general")}>General</button></li>
-    <li><button onClick={() => changeCategory("health")}>Health</button></li>
-    <li><button onClick={() => changeCategory("sports")}>Sports</button></li>
-    <li><button onClick={() => changeCategory("technology")}>Technology</button></li>
-    <li><button onClick={() => changeCategory("business")}>Business</button></li>
-    <li><button onClick={() => changeCategory("entertainment")}>Entertainment</button></li>
-    <li><button onClick={() => changeCategory("science")}>Science</button></li>
-  </ul>
-)}
-
+      {/* Mobile dropdown */}
+      {open && (
+        <ul className="mobile-links">
+          {categories.map((cat) => (
+            <li key={cat.id}>
+              <button
+                className={activeCategory === cat.id ? "active" : ""}
+                onClick={() => handleSelect(cat.id)}
+              >
+                {cat.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </nav>
-
- 
-    <hr />
-    </>
-    
-    
   );
 }
 
